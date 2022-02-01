@@ -99,7 +99,7 @@ namespace PersonsApp.Controllers
                 return NotFound();
             try {
                 person.Id = id;
-                person.ModifyDate = DateTime.Now;
+                person.ModifyDate = DateTime.UtcNow;
                 context.Persons.Update(person);
                 context.SaveChanges();
             } catch(Exception ex) {

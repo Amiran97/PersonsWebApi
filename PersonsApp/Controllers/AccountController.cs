@@ -44,7 +44,7 @@ namespace PersonsApp.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<ActionResult<AuthResponseDTO>> Login(AccountCredentialsDTO accountCredentials)
+        public async Task<ActionResult<AuthResponseDTO>> Login(AccountLoginRequestDTO accountCredentials)
         {
             var user = await userManager.FindByNameAsync(accountCredentials.Username);
             if (user == null)
@@ -111,7 +111,7 @@ namespace PersonsApp.Controllers
         }
 
         [HttpGet]
-        [Route("refresh")]
+        [Route("refresh/{oldRefreshToken}")]
         public async Task<ActionResult<AuthResponseDTO>> Refresh(string oldRefreshToken)
         {
             var token = await context.RefreshTokens.FindAsync(oldRefreshToken);
@@ -148,7 +148,7 @@ namespace PersonsApp.Controllers
         }
 
         [HttpGet]
-        [Route("logout")]
+        [Route("logout/{refreshToken}")]
         public async Task<IActionResult> Logout(string refreshToken)
         {
             var token = context.RefreshTokens.Find(refreshToken);
